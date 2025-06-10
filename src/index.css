@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary: #6366f1;
+        --secondary: #8b5cf6;
+        --accent: #06b6d4;
+        --text: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --dark: #0f172a;
+        --dark-light: #1e293b;
+        --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --glow: 0 0 30px rgba(99, 102, 241, 0.3);
+        --light-bg: #f1f5f9;
+        --light-text: #1e293b;
+        --light-text-secondary: #4b5563;
+        --light-dark-light: #e2e8f0;
+    }
+
+    body {
+        @apply font-inter bg-[var(--dark)] text-[var(--text)] overflow-x-hidden scroll-smooth transition-all duration-300;
+    }
+
+    body.light-theme {
+        @apply bg-[var(--light-bg)] text-[var(--light-text)];
+    }
+
+    body.light-theme .hero-description,
+    body.light-theme .about-text,
+    body.light-theme .project-description,
+    body.light-theme p {
+        @apply text-[var(--light-text-secondary)];
+    }
+
+    body.light-theme .skill-card,
+    body.light-theme .project-card {
+        @apply bg-[var(--light-dark-light)];
+    }
+}
+
+@layer utilities {
+    .bg-animation {
+        @apply fixed top-0 left-0 w-full h-full z-[-1];
+        background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+        animation: bgFloat 20s ease-in-out infinite;
+    }
+
+    .nav-links a::after {
+        content: '';
+        @apply absolute bottom-[-5px] left-0 w-0 h-[2px] bg-gradient-to-r from-[#667eea] to-[#764ba2] transition-all duration-300;
+    }
+
+    .nav-links a:hover::after {
+        @apply w-full;
+    }
+
+    .hover-effect::before {
+        content: '';
+        @apply absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.1)] to-transparent transition-all duration-500;
+    }
+
+    .hover-effect:hover::before {
+        @apply left-full;
+    }
+
+    /* Ensure hover effects work on mobile (triggered by tap) */
+    .hover-effect:active::before,
+    .cta-button:active {
+        @apply transform transition-all duration-300;
+    }
+}
+
+@keyframes bgFloat {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, -30px) rotate(1deg); }
+    66% { transform: translate(-20px, 20px) rotate(-1deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .nav-links {
+        @apply hidden;
+    }
+
+    /* Adjust section padding to scale proportionally */
+    section {
+        @apply px-4 py-12;
+    }
+
+    .section-title {
+        @apply text-[2rem] mb-8;
+    }
+
+    /* Hero Section */
+    .hero-content {
+        @apply text-center;
+    }
+
+    .hero-title {
+        @apply text-[2.5rem] leading-tight mb-4;
+    }
+
+    .hero-description {
+        @apply text-[1rem] mt-4 mb-6 leading-[1.6];
+    }
+
+    .cta-button {
+        @apply px-8 py-3 text-[0.9rem];
+    }
+
+    /* About Section */
+    .about-content {
+        @apply grid-cols-1 text-center gap-8;
+    }
+
+    .about-image {
+        @apply h-[300px] mx-auto mb-4;
+    }
+
+    .about-text {
+        @apply text-[1rem] leading-[1.8];
+    }
+
+    /* Skills Section */
+    .skills-grid {
+        @apply grid-cols-1 gap-6;
+    }
+
+    .skill-card {
+        @apply p-6;
+    }
+
+    .skill-title {
+        @apply text-[1.25rem] mb-2;
+    }
+
+    .skill-icon {
+        @apply text-[2rem] mb-2;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+        @apply grid-cols-1 gap-6 w-full;
+    }
+
+    .project-card {
+        @apply p-6 w-full max-w-[350px] mx-auto;
+    }
+
+    .project-image {
+        @apply h-[150px] text-[3rem];
+    }
+
+    .project-title {
+        @apply text-[1.25rem] mb-2;
+    }
+
+    .project-description {
+        @apply text-[0.9rem] mb-4 leading-[1.6];
+    }
+
+    .filter-controls {
+        @apply gap-2;
+    }
+
+    .filter-btn {
+        @apply px-3 py-1 text-[0.9rem];
+    }
+
+    /* Contact Section */
+    .contact-content {
+        @apply max-w-full px-4;
+    }
+
+    .contact-content p {
+        @apply text-[1rem] mb-6 leading-[1.6];
+    }
+
+    .form-row {
+        @apply grid-cols-1 gap-4;
+    }
+
+    .contact-form {
+        @apply gap-4;
+    }
+
+    input, textarea {
+        @apply p-3 text-[0.9rem];
+    }
+
+    textarea {
+        @apply min-h-[100px];
+    }
+
+    .contact-box {
+        @apply p-6;
+    }
+}
+
+/* Extra small screens (e.g., < 480px) */
+@media (max-width: 480px) {
+    .section-title {
+        @apply text-[1.75rem] mb-6;
+    }
+
+    .hero-title {
+        @apply text-[2rem] mb-3;
+    }
+
+    .hero-description {
+        @apply text-[0.9rem] mb-4 leading-[1.6];
+    }
+
+    .cta-button {
+        @apply px-6 py-2 text-[0.8rem];
+    }
+
+    .about-image {
+        @apply h-[250px] mb-4;
+    }
+
+    .about-text {
+        @apply text-[0.9rem] leading-[1.6];
+    }
+
+    .skill-title {
+        @apply text-[1.1rem];
+    }
+
+    .project-title {
+        @apply text-[1.1rem];
+    }
+
+    .project-description {
+        @apply text-[0.85rem] leading-[1.6];
+    }
+
+    .filter-btn {
+        @apply px-2 py-1 text-[0.8rem];
+    }
+
+    .contact-content p {
+        @apply text-[0.9rem] mb-4 leading-[1.6];
+    }
+}
