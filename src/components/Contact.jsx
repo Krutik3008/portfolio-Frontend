@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-// const BASE_URL= "http://localhost:5000";
-const BASE_URL= "https://portfolio-backend-beta-eight-20.vercel.app"
+const BASE_URL = "https://portfolio-backend-beta-eight-20.vercel.app";
 
 function Contact() {
     const [formData, setFormData] = useState({
@@ -24,16 +23,26 @@ function Contact() {
         setErrorMessage('');
 
         try {
-            const response = await axios.post(`${BASE_URL}/api/contact`, formData);
+            console.log('Submitting form with data:', formData);
+            const response = await axios.post(`${BASE_URL}/api/contact`, formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log('Response from backend:', response.data);
             setSuccessMessage('Message sent successfully!');
-            setFormData({ name: '', email: '', subject: '', message: '' }); // Reset form
+            setFormData({ name: '', email: '', subject: '', message: '' });
 
-            // Hide success message after 5 seconds
             setTimeout(() => {
                 setSuccessMessage('');
             }, 5000);
         } catch (error) {
-            console.error('Error submitting form:', error.response?.data || error.message);
+            console.error('Error submitting form:', {
+                message: error.message,
+                response: error.response?.data,
+                status: error.response?.status,
+                headers: error.response?.headers,
+            });
             setErrorMessage(error.response?.data?.message || 'Failed to send message. Please try again.');
         }
     };
