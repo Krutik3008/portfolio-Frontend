@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const BASE_URL = "https://portfolio-backend-1wk99936t-krutik-patel-s-projects.vercel.app";
+const BASE_URL = "https://protfolio-backend-igxk.onrender.com";
 
 function Contact() {
     const [formData, setFormData] = useState({
